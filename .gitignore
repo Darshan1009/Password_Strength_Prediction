@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# SQLite and Data files
+*.sqlite
+*.db
+
+# Model and vectorizer files
+*.pkl
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db 

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Generator - Password Strength Tester</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #a1c4fd 60%, #c2e9fb 100%);
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            max-width: 600px;
+            margin: 60px auto 40px auto;
+            border-radius: 24px;
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 8px 40px rgba(40,40,80,0.18), 0 1.5px 8px rgba(40,40,80,0.10);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.35);
+            position: relative;
+            z-index: 2;
+        }
+        .generated-password {
+            font-family: 'Courier New', monospace;
+            background: rgba(0,0,0,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            border: none;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2575fc, #6a11cb);
+        }
+        .card-title {
+            background: linear-gradient(90deg, #6a11cb, #2575fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .custom-checkbox {
+            background: rgba(255,255,255,0.35);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid rgba(255,255,255,0.25);
+        }
+        .strength-indicator {
+            height: 8px;
+            border-radius: 4px;
+            margin: 10px 0;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+        .strength-bar {
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass-card p-4 mt-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="card-title mb-0">
+                    <i class="bi bi-key-fill"></i> Password Generator
+                </h2>
+                <a href="/" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Back to Tester
+                </a>
+            </div>
+
+            <!-- Password Length -->
+            <div class="mb-4">
+                <label for="passwordLength" class="form-label">
+                    <i class="bi bi-rulers"></i> Password Length: <span id="lengthValue">12</span>
+                </label>
+                <input type="range" class="form-range" id="passwordLength" min="8" max="50" value="12">
+            </div>
+
+            <!-- Character Options -->
+            <div class="mb-4">
+                <h6 class="mb-3">
+                    <i class="bi bi-gear"></i> Character Options
+                </h6>
+                <div class="custom-checkbox">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="useUppercase" checked>
+                        <label class="form-check-label" for="useUppercase">
+                            <i class="bi bi-type-bold"></i> Uppercase Letters (A-Z)
+                        </label>
+                    </div>
+                </div>
+                <div class="custom-checkbox">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="useLowercase" checked>
+                        <label class="form-check-label" for="useLowercase">
+                            <i class="bi bi-type"></i> Lowercase Letters (a-z)
+                        </label>
+                    </div>
+                </div>
+                <div class="custom-checkbox">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="useDigits" checked>
+                        <label class="form-check-label" for="useDigits">
+                            <i class="bi bi-123"></i> Numbers (0-9)
+                        </label>
+                    </div>
+                </div>
+                <div class="custom-checkbox">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="useSymbols" checked>
+                        <label class="form-check-label" for="useSymbols">
+                            <i class="bi bi-asterisk"></i> Special Characters (!@#$%^&*)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button class="btn btn-primary w-100 mb-4" onclick="generatePassword()">
+                <i class="bi bi-magic"></i> Generate Password
+            </button>
+
+            <!-- Generated Password Display -->
+            <div id="passwordResult" style="display: none;">
+                <h6 class="mb-3">
+                    <i class="bi bi-shield-check"></i> Generated Password
+                </h6>
+                <div class="generated-password" id="generatedPassword"></div>
+                
+                <!-- Strength Indicator -->
+                <div class="mt-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <small><strong>Strength:</strong></small>
+                        <small id="strengthText"></small>
+                    </div>
+                    <div class="strength-indicator">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                </div>
+
+                <!-- Password Details -->
+                <div class="mt-3" id="passwordDetails"></div>
+
+                <!-- Action Buttons -->
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <button class="btn btn-outline-success w-100" onclick="copyPassword()">
+                            <i class="bi bi-clipboard"></i> Copy Password
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-outline-primary w-100" onclick="generatePassword()">
+                            <i class="bi bi-arrow-clockwise"></i> Generate New
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="mt-4">
+                <h6 class="mb-3">
+                    <i class="bi bi-lightbulb"></i> Password Tips
+                </h6>
+                <ul class="list-unstyled">
+                    <li><i class="bi bi-check-circle text-success"></i> Use at least 12 characters for better security</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Include a mix of character types</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Avoid common patterns or words</li>
+                    <li><i class="bi bi-check-circle text-success"></i> Use unique passwords for each account</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Update length display
+        document.getElementById('passwordLength').addEventListener('input', function() {
+            document.getElementById('lengthValue').textContent = this.value;
+        });
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('passwordLength').value);
+            const useUppercase = document.getElementById('useUppercase').checked;
+            const useLowercase = document.getElementById('useLowercase').checked;
+            const useDigits = document.getElementById('useDigits').checked;
+            const useSymbols = document.getElementById('useSymbols').checked;
+
+            // Validate that at least one option is selected
+            if (!useUppercase && !useLowercase && !useDigits && !useSymbols) {
+                alert('Please select at least one character type!');
+                return;
+            }
+
+            fetch('/api/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    length: length,
+                    use_uppercase: useUppercase,
+                    use_lowercase: useLowercase,
+                    use_digits: useDigits,
+                    use_symbols: useSymbols
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('generatedPassword').textContent = data.password;
+                document.getElementById('passwordResult').style.display = 'block';
+                
+                // Update strength indicator
+                updateStrengthIndicator(data.result, data.details);
+                
+                // Update password details
+                updatePasswordDetails(data.details);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to generate password. Please try again.');
+            });
+        }
+
+        function updateStrengthIndicator(result, details) {
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+            
+            if (result.toLowerCase().includes('weak')) {
+                strengthBar.style.width = '33%';
+                strengthBar.style.background = '#dc3545';
+                strengthText.textContent = 'Weak';
+            } else if (result.toLowerCase().includes('normal')) {
+                strengthBar.style.width = '66%';
+                strengthBar.style.background = '#ffc107';
+                strengthText.textContent = 'Moderate';
+            } else {
+                strengthBar.style.width = '100%';
+                strengthBar.style.background = '#198754';
+                strengthText.textContent = 'Strong';
+            }
+        }
+
+        function updatePasswordDetails(details) {
+            const detailsDiv = document.getElementById('passwordDetails');
+            detailsDiv.innerHTML = `
+                <div class="row">
+                    <div class="col-md-3">
+                        <small><strong>Length:</strong> ${details.Length}</small>
+                    </div>
+                    <div class="col-md-3">
+                        <small><strong>Uppercase:</strong> ${details.Uppercase}</small>
+                    </div>
+                    <div class="col-md-3">
+                        <small><strong>Lowercase:</strong> ${details.Lowercase}</small>
+                    </div>
+                    <div class="col-md-3">
+                        <small><strong>Digits:</strong> ${details.Digits}</small>
+                    </div>
+                </div>
+            `;
+        }
+
+        function copyPassword() {
+            const password = document.getElementById('generatedPassword').textContent;
+            navigator.clipboard.writeText(password).then(function() {
+                // Show a temporary success message
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="bi bi-check"></i> Copied!';
+                button.classList.remove('btn-outline-success');
+                button.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-outline-success');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                alert('Failed to copy password. Please try again.');
+            });
+        }
+
+        // Generate initial password on page load
+        window.onload = function() {
+            generatePassword();
+        };
+    </script>
+</body>
+</html> 
