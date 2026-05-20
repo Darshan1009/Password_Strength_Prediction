@@ -1,7 +1,8 @@
+import os
 import sqlite3
 
-# Path to your database file
-db_path = r'D:\Password_Strength_Prediction_using_NLP-main\Datasets\password_data.sqlite'
+# Path to your database file (relative to this script)
+db_path = os.path.join(os.path.dirname(__file__), 'Datasets', 'password_data.sqlite')
 
 # Connect to the database
 conn = sqlite3.connect(db_path)

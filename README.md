@@ -38,8 +38,8 @@ A modern, interactive web application that helps you evaluate and improve your p
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/password-strength-predictor.git
-   cd password-strength-predictor
+   git clone https://github.com/Darshan1009/Password_Strength_Prediction.git
+   cd Password_Strength_Prediction
    ```
 
 2. **Install dependencies:**
