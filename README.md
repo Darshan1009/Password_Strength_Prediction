@@ -9,6 +9,8 @@ A modern, interactive web application that evaluates password security using **M
 ### Password Strength Tester
 The main page lets you check any password's strength in real time. Get instant feedback, helpful tips, and explore tabs covering security best practices.
 
+<img width="1912" height="1019" alt="Screenshot 2026-05-21 165957" src="https://github.com/user-attachments/assets/7b966481-f472-4abd-be3c-9095ec6ab03d" />
+
 ![Password Strength Tester](screenshots/tester.png)
 
 ### Password Generator
