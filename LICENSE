@@ -1,0 +1,44 @@
+Copyright (c) 2026 Darshan. All Rights Reserved.
+
+This software and its source code, including all files, documentation, images,
+trained models, and associated assets (collectively, "the Project"), are the
+intellectual property of the copyright holder.
+
+PERMITTED USES
+--------------
+You MAY:
+  - View and read the source code for educational and reference purposes.
+  - Star, watch, or bookmark this repository on GitHub.
+  - Link to this repository from your own work, with proper attribution.
+
+PROHIBITED USES
+---------------
+Without explicit prior written permission from the copyright holder, you MAY NOT:
+  - Copy, clone, fork, mirror, or redistribute the Project or any part of it
+    for any purpose other than personal, non-commercial study.
+  - Modify, adapt, translate, or create derivative works based on the Project.
+  - Use the Project, in whole or in part, in any commercial product, service,
+    portfolio, course material, tutorial, blog post, video, or publication.
+  - Remove, alter, or obscure this copyright notice or any attribution.
+  - Train machine learning models on this code or use it as input to any AI
+    system without explicit permission.
+
+ATTRIBUTION
+-----------
+Any permitted use that involves displaying, discussing, or referencing this
+Project must include clear attribution to the original author with a direct
+link to the original repository:
+    https://github.com/Darshan1009/Password_Strength_Prediction
+
+NO WARRANTY
+-----------
+THE PROJECT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING
+FROM THE USE OF THE PROJECT.
+
+CONTACT
+-------
+For licensing inquiries or permission requests, contact the author through
+their GitHub profile: https://github.com/Darshan1009
