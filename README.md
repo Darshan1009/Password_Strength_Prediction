@@ -16,8 +16,9 @@ The main page lets you check any password's strength in real time. Get instant f
 ### Password Generator
 Generate secure passwords with full control over length and character types. Each generated password is instantly scored and broken down by character composition.
 
-![Password Generator](screenshots/generator.png)
+<img width="1914" height="1031" alt="Screenshot 2026-05-21 170021" src="https://github.com/user-attachments/assets/d0d715f8-89c8-49b7-ad6d-dc52d376ae42" />
 
+![Password Generator](screenshots/generator.png)
 ---
 
 ## ✨ Features
